@@ -4,7 +4,7 @@ import pygame
 import game_window
 import game_grid
 import live_object
-
+import side_panel
 
 # Initializing pygame
 pygame.init()
@@ -28,12 +28,11 @@ SQUARE_H= 100
 program_is_runing = True
 
 # Creating the window to host the application
-new_window = game_window.window(SCREEN_WIDTH , SCREEN_HEIGTH)
-main_panel = new_window.myscreen()
-side_panel = game_window.window(SIDE_P_WIDTH , SIDE_P_HEIGTH)
+new_window = game_window.myscreen(SCREEN_WIDTH , SCREEN_HEIGTH)
 
-#Creating the grid
+# Creating the grid
 grid = game_grid.grid(SQUARE_W, SQUARE_H)
+
 
 
 # Creating the live object
@@ -41,11 +40,14 @@ live_object = live_object.live("alive.png",50,50,10,10)
 
 def run():
     # white background
-    main_panel.fill([255,255,255])
+    new_window.fill([255,255,255])
     grid.draw_grid(new_window)
 
-    # draw our player
-    live_object.draw_object(main_panel, grid)
+    # Creating the side panel
+    side_panel.side_panel(new_window)
+
+    # draw the live object
+    live_object.draw_object(new_window, grid)
 
     # update our display
     pygame.display.flip()
