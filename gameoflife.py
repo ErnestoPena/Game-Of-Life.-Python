@@ -49,7 +49,7 @@ clear = buttons.buttonsClass(100,40, 1050, 160, "Clear All", (255,255,255))
 # Draw buttons
 draw_pattern.create_button(new_window, (144,238,144)) 
 start_stop.create_button(new_window, (144,238,144))
-clear = clear.create_button(new_window, (144,238,144))
+clear.create_button(new_window, (144,238,144))
 
 # Draw a separation line
 pygame.draw.line(new_window, (255,255,255), (1000, 230) , (1200,230))
