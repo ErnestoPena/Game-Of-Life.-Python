@@ -13,7 +13,7 @@ class buttonsClass:
         # Creating the rectangle
         pygame.draw.rect(window, outline, (self.x, self.y, self.width, self.height),0)
         
-        # # Font and Text for the buttons
+        # Font and Text for the buttons
         font = pygame.font.SysFont('Times New Roman', 16)
         text = font.render(self.text,1,(0,0,0))
 
