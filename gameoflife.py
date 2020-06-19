@@ -2,6 +2,8 @@
 import sys
 import os
 import pygame
+
+# Importing App modules
 import game_window
 import game_grid
 import live_object
@@ -10,11 +12,16 @@ import buttons
 import load_music
 import app_credits
 import mouse_menu
+import rules_message
+import grid_tuple
+import process_pattern
 
 # https://www.melodyloops.com/
 
 # Initializing pygame
 pygame.init()
+
+hold_grid_data = grid_tuple.construct_main_tuple()
 
 # Setting the caption for the Main window
 pygame.display.set_caption("Game of Life. Lambdaschool Computer Science Project 1")
@@ -85,9 +92,10 @@ pygame.draw.line(new_window, (255,255,255), (1000, 380) , (1200,380))
 # Creating the live object
 live_object = live_object.live("alive.png",50,50,10,10)
 
+process_pattern.process_pattern(((10,2, True), (10,5, False),(34,6, True),(12,4, False),(7,4, False),(6,4, True),(6,4, True),(2,5, False)))
+
 def run():
    
-
     # draw the live object
     live_object.draw_object(new_window, grid)
 
@@ -135,6 +143,25 @@ while program_is_runing:
             elif mouse_result == 5:
                 app_credits.create_button(new_window, (189,183,107))     
 
+        if x.type == pygame.MOUSEBUTTONDOWN:
+            if mouse_result == None:
+                game_rules.create_button(new_window, (144,238,144))
+                draw_pattern.create_button(new_window, (144,238,144))
+                start_stop.create_button(new_window, (144,238,144))
+                clear.create_button(new_window, (144,238,144))
+                app_credits.create_button(new_window, (144,238,144))
+        
+            elif mouse_result == 1:
+                print("Clicked 1")
+                rules_message.rules()
+            elif mouse_result == 2:
+                draw_pattern.create_button(new_window, (189,183,107)) 
+            elif mouse_result == 3:
+                start_stop.create_button(new_window, (189,183,107)) 
+            elif mouse_result == 4:
+                clear.create_button(new_window, (189,183,107))    
+            elif mouse_result == 5:
+                app_credits.create_button(new_window, (189,183,107))    
 
         # Describe other
 
