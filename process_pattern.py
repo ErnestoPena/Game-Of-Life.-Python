@@ -10,11 +10,15 @@ def process_pattern(pattern):
     # B    => Top Left neighbour coordinates and status.
     # BL   => Top Left neighbour coordinates and status.
     # L    => Top Left neighbour coordinates and status.
-    
+
     grid_list = []
-    for x in range(0, len(pattern)+1):
-        for y in range(0,9):
-            pattern[x]
-            grid_list.append((y*10 , x*10, False))
+    for node in pattern:
+        TL = (node[0]-10, node[1]-10)
+        if TL in pattern:
+            print()
+        print(TL)
+        # for y in range(0,9):
+        #     pattern[x]
+        #     grid_list.append((y*10 , x*10, False))
 
     print(tuple(grid_list))

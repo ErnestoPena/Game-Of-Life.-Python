@@ -21,7 +21,8 @@ import process_pattern
 # Initializing pygame
 pygame.init()
 
-hold_grid_data = grid_tuple.construct_main_tuple()
+#hold_grid_data = grid_tuple.construct_main_tuple()
+
 
 # Setting the caption for the Main window
 pygame.display.set_caption("Game of Life. Lambdaschool Computer Science Project 1")
@@ -92,7 +93,9 @@ pygame.draw.line(new_window, (255,255,255), (1000, 380) , (1200,380))
 # Creating the live object
 live_object = live_object.live("alive.png",50,50,10,10)
 
-process_pattern.process_pattern(((10,2, True), (10,5, False),(34,6, True),(12,4, False),(7,4, False),(6,4, True),(6,4, True),(2,5, False)))
+#process_pattern.process_pattern(hold_grid_data)
+
+pressed = False
 
 def run():
    
@@ -101,6 +104,7 @@ def run():
 
     # update our display
     pygame.display.flip()
+
 
 
 class gameoflife:
@@ -124,6 +128,7 @@ while program_is_runing:
 
         # IF statement to control mouse on menu
         mouse_result = mouse_menu.mouse_over_menu(mouse_position)
+        mouse_click_result = mouse_menu.mouse_click_menu(mouse_position, pressed)
         if x.type == pygame.MOUSEMOTION:
             if mouse_result == None:
                 game_rules.create_button(new_window, (144,238,144))
@@ -151,16 +156,16 @@ while program_is_runing:
                 clear.create_button(new_window, (144,238,144))
                 app_credits.create_button(new_window, (144,238,144))
         
-            elif mouse_result == 1:
+            elif mouse_click_result == 1:
                 print("Clicked 1")
                 rules_message.rules()
-            elif mouse_result == 2:
+            elif mouse_click_result == 2:
                 draw_pattern.create_button(new_window, (189,183,107)) 
-            elif mouse_result == 3:
+            elif mouse_click_result == 3:
                 start_stop.create_button(new_window, (189,183,107)) 
-            elif mouse_result == 4:
+            elif mouse_click_result == 4:
                 clear.create_button(new_window, (189,183,107))    
-            elif mouse_result == 5:
+            elif mouse_click_result == 5:
                 app_credits.create_button(new_window, (189,183,107))    
 
         # Describe other
