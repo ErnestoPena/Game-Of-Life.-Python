@@ -15,6 +15,7 @@ import mouse_menu
 import rules_message
 import grid_tuple
 import process_pattern
+import text_directions
 
 # https://www.melodyloops.com/
 
@@ -48,6 +49,9 @@ draw_pattern_pressed = False
 start_stop_pressed = False
 clear_pressed = False
 app_credits_pressed = False
+
+rectangle_draging = False
+
 
 # Creating the window to host the application
 new_window = game_window.myscreen(SCREEN_WIDTH , SCREEN_HEIGTH)
@@ -84,6 +88,7 @@ start_stop.create_button((144,238,144))
 clear.create_button((144,238,144))
 app_credits.create_button((144,238,144))
 
+#########################CONVERT ALL THIS INTO A CLASS - FUTURE IMPLEMENTATION############
 # Draw a separation line buttons - statistics
 pygame.draw.line(new_window, (255,255,255), (1000, 350) , (1200,350))
 
@@ -94,6 +99,20 @@ new_window.blit(header_text, (1000 + (200/2 - header_text.get_width()/2), 343 + 
 
 # Draw a separation line buttons - statistics
 pygame.draw.line(new_window, (255,255,255), (1000, 380) , (1200,380))
+
+
+# Draw a separation line buttons - statistics
+pygame.draw.line(new_window, (255,255,255), (1000, 650) , (1200,650))
+
+# Font and Text for the Header
+font = pygame.font.SysFont('Times New Roman', 20)
+header_text = font.render("Directions",1,(255,255,255))
+new_window.blit(header_text, (1000 + (200/2 - header_text.get_width()/2), 643 + (header_text.get_height()/2)))
+
+# Draw a separation line buttons - statistics
+pygame.draw.line(new_window, (255,255,255), (1000, 680) , (1200,680))
+
+#########################################################################################
 
 # Creating the live object
 live_object = live_object.live("alive.png",50,50,10,10)
@@ -114,10 +133,9 @@ while program_is_runing:
     pygame.display.update()
     # Chequing for mouse and key press events
     for x in pygame.event.get():
-        
+        text_directions.print("", new_window)
         # Statement to constantly get the mouse coordinates
         position = pygame.mouse.get_pos()
-
         # If statement to quit the app
         if x.type == pygame.QUIT:
             program_is_runing = False
@@ -134,7 +152,6 @@ while program_is_runing:
         clear_all_state = clear.hover_state(position)
         app_credits_state = app_credits.hover_state(position)
 
-        print(game_rules_state)
         #mouse_click_result = mouse_menu.mouse_click_menu(position, pressed)
 
         # if x.type == pygame.MOUSEMOTION:
@@ -153,9 +170,19 @@ while program_is_runing:
         #     elif mouse_result == 4:
         #         clear.create_button((189,183,107))    
         #     elif mouse_result == 5:
-        #         app_credits.create_button((189,183,107))     
+        #         app_credits.create_button((189,183,107))  
+         
+           
 
         if x.type == pygame.MOUSEBUTTONDOWN:
+            if rectangle_draging and (0 <= position[0] <= 1000) and (0 <= position[1] <= 1000):
+                print("Drag Rectangle", rectangle_draging)
+                get_initial_pos = pygame.mouse.get_pos()
+            if rectangle_draging and not (0 <= position[0] <= 1000) and (0 <= position[1] <= 1000):
+                new_window.fill(pygame.Color("black"), (1001, 685, 199, 690))
+                text_directions.print("Error!, click inside Grid - 1!!", new_window)
+
+
             # IF Statemen to control Game Rules Mouse Click and hover events
             if (1050 <= position[0] <= 1150) and (50 <= position[1] <= 90):
                 if game_rules_pressed:
@@ -166,13 +193,14 @@ while program_is_runing:
                     game_rules.create_button((144,238,144))    
 
             # IF Statemen to control Mouse Click events
-            if (1050 <= position[0] <= 1150) and (110 <= position[1] <= 150):
-                if draw_pattern_pressed:
-                    draw_pattern_pressed = False
-                    draw_pattern.create_button((189,183,107))    
-                else:
-                    draw_pattern_pressed = True
-                    draw_pattern.create_button((144,238,144))       
+            if not rectangle_draging and (1050 <= position[0] <= 1150) and (110 <= position[1] <= 150): 
+                rectangle_draging = True
+                draw_pattern.create_button((189,183,107))  
+                new_window.fill(pygame.Color("black"), (1001, 685, 199, 690)) 
+                text_directions.print("Select First Point & Drag", new_window) 
+            else:
+                rectangle_draging = False
+                draw_pattern.create_button((144,238,144))       
 
             # IF Statemen to control Start/Stop Mouse Click and hover events
             if (1050 <= position[0] <= 1150) and (170 <= position[1] <= 210):
@@ -200,7 +228,16 @@ while program_is_runing:
                 else:
                     app_credits_pressed = True
                     app_credits.create_button((144,238,144)) 
-
+        print(rectangle_draging, "last rectangle draging")
+        if rectangle_draging and x.type == pygame.MOUSEBUTTONUP:
+            if  not (0 <= position[0] <= 1000) and (0 <= position[1] <= 1000):
+                new_window.fill(pygame.Color("black"), (1001, 685, 199, 690))
+                text_directions.print("Error, Release Inside Grid", new_window)
+            elif rectangle_draging:    
+                get_last_pos = pygame.mouse.get_pos()
+                new_window.fill(pygame.Color("black"), (1001, 685, 199, 690))
+                text_directions.print("Good!!, repeat as needed", new_window)
+                
         # Describe other
 
     
