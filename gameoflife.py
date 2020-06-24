@@ -43,6 +43,11 @@ load_music.music(True , CURRENT_PATH)
 
 #Set the state of our program
 program_is_runing = True
+game_rules_pressed = False
+draw_pattern_pressed = False
+start_stop_pressed = False
+clear_pressed = False
+app_credits_pressed = False
 
 # Creating the window to host the application
 new_window = game_window.myscreen(SCREEN_WIDTH , SCREEN_HEIGTH)
@@ -132,64 +137,69 @@ while program_is_runing:
         print(game_rules_state)
         #mouse_click_result = mouse_menu.mouse_click_menu(position, pressed)
 
-        if x.type == pygame.MOUSEMOTION:
-            if mouse_result == None and game_rules_state == False and draw_pattern_state == False and start_stop_state == False and clear_all_state == False and app_credits_state == False:
-                game_rules.create_button((144,238,144))
-                draw_pattern.create_button((144,238,144))
-                start_stop.create_button((144,238,144))
-                clear.create_button((144,238,144))
-                app_credits.create_button((144,238,144))
-            elif mouse_result == 1:
-                game_rules.create_button((189,183,107)) 
-            elif mouse_result == 2:
-                draw_pattern.create_button((189,183,107)) 
-            elif mouse_result == 3:
-                start_stop.create_button((189,183,107)) 
-            elif mouse_result == 4:
-                clear.create_button((189,183,107))    
-            elif mouse_result == 5:
-                app_credits.create_button((189,183,107))     
+        # if x.type == pygame.MOUSEMOTION:
+        #     if mouse_result == None and game_rules_state == False and draw_pattern_state == False and start_stop_state == False and clear_all_state == False and app_credits_state == False:
+        #         game_rules.create_button((144,238,144))
+        #         draw_pattern.create_button((144,238,144))
+        #         start_stop.create_button((144,238,144))
+        #         clear.create_button((144,238,144))
+        #         app_credits.create_button((144,238,144))
+        #     elif mouse_result == 1:
+        #         game_rules.create_button((189,183,107)) 
+        #     elif mouse_result == 2:
+        #         draw_pattern.create_button((189,183,107)) 
+        #     elif mouse_result == 3:
+        #         start_stop.create_button((189,183,107)) 
+        #     elif mouse_result == 4:
+        #         clear.create_button((189,183,107))    
+        #     elif mouse_result == 5:
+        #         app_credits.create_button((189,183,107))     
 
         if x.type == pygame.MOUSEBUTTONDOWN:
             # IF Statemen to control Game Rules Mouse Click and hover events
-            if (1050 <= position[0] <= 1150) and (50 <= position[1] <= 90) and pressed:
-                pressed = False
-                #return (6,pressed)    
-            else:
-                pressed = True
-                #return (7,pressed)    
+            if (1050 <= position[0] <= 1150) and (50 <= position[1] <= 90):
+                if game_rules_pressed:
+                    game_rules_pressed = False
+                    game_rules.create_button((189,183,107))    
+                else:
+                    game_rules_pressed = True
+                    game_rules.create_button((144,238,144))    
 
             # IF Statemen to control Mouse Click events
-            if (1050 <= position[0] <= 1150) and (110 <= position[1] <= 150) and pressed:
-                pressed = False
-                #return (8,pressed)
-            else:
-                pressed = True
-                #return (9,pressed)        
+            if (1050 <= position[0] <= 1150) and (110 <= position[1] <= 150):
+                if draw_pattern_pressed:
+                    draw_pattern_pressed = False
+                    draw_pattern.create_button((189,183,107))    
+                else:
+                    draw_pattern_pressed = True
+                    draw_pattern.create_button((144,238,144))       
 
             # IF Statemen to control Start/Stop Mouse Click and hover events
-            if (1050 <= position[0] <= 1150) and (170 <= position[1] <= 210) and pressed:
-                pressed = False
-                #return (10,pressed)
-            else:
-                pressed = True
-                #return (11,pressed)         
+            if (1050 <= position[0] <= 1150) and (170 <= position[1] <= 210):
+                if start_stop_pressed:
+                    start_stop_pressed = False
+                    start_stop.create_button((189,183,107))    
+                else:
+                    start_stop_pressed = True
+                    start_stop.create_button((144,238,144))        
 
             # IF Statemen to control Clear Mouse Click and hover events
-            if (1050 <= position[0] <= 1150) and (230 <= position[1] <= 270) and pressed:
-                pressed = False
-                #return (12,pressed)
-            else:
-                pressed = True
-                #return (13,pressed)       
+            if (1050 <= position[0] <= 1150) and (230 <= position[1] <= 270):
+                if clear_pressed:
+                    clear_pressed = False
+                    clear.create_button((189,183,107))    
+                else:
+                    clear_pressed = True
+                    clear.create_button((144,238,144))           
 
             # IF Statemen to control App Credits Mouse Click and hover events
-            if (1050 <= position[0] <= 1150) and (290 <= position[1] <= 330) and pressed:
-                pressed = False
-                #return 14
-            else:
-                pressed = True
-                #return 15    
+            if (1050 <= position[0] <= 1150) and (290 <= position[1] <= 330):
+                if app_credits_pressed:
+                    app_credits_pressed = False
+                    app_credits.create_button((189,183,107))    
+                else:
+                    app_credits_pressed = True
+                    app_credits.create_button((144,238,144)) 
 
         # Describe other
 
