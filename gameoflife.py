@@ -24,7 +24,7 @@ import find_real_coordinates
 pygame.init()
 
 hold_grid_data = grid_tuple.construct_main_tuple()
-
+print(hold_grid_data)
 # Setting the caption for the Main window
 pygame.display.set_caption("Game of Life. Lambdaschool Computer Science Project 1")
 
@@ -40,7 +40,8 @@ BACKGROUND = "FFFFFF"
 SQUARE_W = 100
 SQUARE_H= 100
 image_to_load = ('alive.png', 'dead.png')
-
+count_if_live_cells_exists = 0
+status_master_list= (0,0,0)
 load_music.music(True , CURRENT_PATH)
 
 #Set the state of our program
@@ -113,15 +114,8 @@ pygame.draw.line(new_window, (255,255,255), (1000, 680) , (1200,680))
 
 #########################################################################################
 
-# Creating the live object
-#live_object = live_object.live("alive.png",50,50,10,10)
-
-#process_pattern.process_pattern(hold_grid_data)
-
 def run():
    
-    # draw the live object
-    #live_object.draw_object(new_window, grid)
 
     # update our display
     pygame.display.flip()
@@ -160,7 +154,7 @@ while program_is_runing:
 
                 #Updating the Master List Cell Status
                 real_coordinates = find_real_coordinates.real_coord(get_initial_pos)
-                status_master_list = process_pattern.update_master(real_coordinates, hold_grid_data)
+                status_master_list = process_pattern.update_master(real_coordinates, hold_grid_data, count_if_live_cells_exists)
                 live_object.print_cell(image_to_load, real_coordinates[0] , real_coordinates[1], 9 , 9, new_window , grid, status_master_list[1])
 
             if rectangle_draging and not grid_area:
@@ -191,20 +185,23 @@ while program_is_runing:
 
             # IF Statemen to control Start/Stop Mouse Click and hover events
             if (1050 <= position[0] <= 1150) and (170 <= position[1] <= 210):
-                if start_stop_pressed:
-                    start_stop_pressed = False
-                    start_stop.create_button((189,183,107))    
+                if status_master_list[2] > 0:
+                    if not start_stop_pressed:
+                        print("inside Start/Stop")
+                        start_stop_pressed = True
+                        start_stop.create_button((189,183,107))  
+                        process_pattern.process_neighbours(hold_grid_data)  
+                    else:
+                        start_stop_pressed = False
+                        start_stop.create_button((144,238,144))  
                 else:
-                    start_stop_pressed = True
-                    start_stop.create_button((144,238,144))        
+                    new_window.fill(pygame.Color("black"), (1001, 685, 199, 690))
+                    text_directions.print("Error!, Select a Cell", new_window)              
 
             # IF Statemen to control Clear Mouse Click and hover events
-            if (1050 <= position[0] <= 1150) and (230 <= position[1] <= 270):
-                print("inside clear")    
+            if (1050 <= position[0] <= 1150) and (230 <= position[1] <= 270):    
                 grid = game_grid.grid(SQUARE_W, SQUARE_H, new_window)
-                clear_pressed = False
-                clear.create_button((189,183,107))    
-                clear.create_button((144,238,144))           
+                          
 
             # IF Statemen to control App Credits Mouse Click and hover events
             if (1050 <= position[0] <= 1150) and (290 <= position[1] <= 330):
