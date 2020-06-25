@@ -23,8 +23,8 @@ import find_real_coordinates
 # Initializing pygame
 pygame.init()
 
-#hold_grid_data = grid_tuple.construct_main_tuple()
-
+hold_grid_data = grid_tuple.construct_main_tuple()
+print(hold_grid_data)
 
 # Setting the caption for the Main window
 pygame.display.set_caption("Game of Life. Lambdaschool Computer Science Project 1")
