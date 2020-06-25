@@ -18,4 +18,4 @@ class live:
 
     def draw_object(self, screen , map_object):
         #for x in self.objects_coordinates:
-            screen.blit(self.image_to_load, [self.x, self.y])
+        screen.blit(self.image_to_load, [self.x, self.y])

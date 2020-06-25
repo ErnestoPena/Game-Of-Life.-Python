@@ -16,6 +16,7 @@ import rules_message
 import grid_tuple
 import process_pattern
 import text_directions
+import find_real_coordinates
 
 # https://www.melodyloops.com/
 
@@ -140,7 +141,7 @@ while program_is_runing:
         if x.type == pygame.QUIT:
             program_is_runing = False
             pygame.quit()
-            quit()
+            quit() 
 
         # IF statement to control mouse on menu
         mouse_result = mouse_menu.mouse_over_menu(position)
@@ -175,13 +176,18 @@ while program_is_runing:
            
 
         if x.type == pygame.MOUSEBUTTONDOWN:
-            if rectangle_draging and (0 <= position[0] <= 1000) and (0 <= position[1] <= 1000):
+            grid_area = (0 <= position[0] <= 1000) and (0 <= position[1] <= 1000) 
+            if rectangle_draging and grid_area:
                 print("Drag Rectangle", rectangle_draging)
                 get_initial_pos = pygame.mouse.get_pos()
-            if rectangle_draging and not (0 <= position[0] <= 1000) and (0 <= position[1] <= 1000):
                 new_window.fill(pygame.Color("black"), (1001, 685, 199, 690))
-                text_directions.print("Error!, click inside Grid - 1!!", new_window)
-
+                text_directions.print("X,Y=>" + str(get_initial_pos), new_window)
+                rrr = find_real_coordinates.real_coord(get_initial_pos)
+                print("rrr", rrr)
+            if rectangle_draging and not grid_area:
+                new_window.fill(pygame.Color("black"), (1001, 685, 199, 690))
+                text_directions.print("Error!, click inside Grid!!", new_window)
+                
 
             # IF Statemen to control Game Rules Mouse Click and hover events
             if (1050 <= position[0] <= 1150) and (50 <= position[1] <= 90):
@@ -193,13 +199,15 @@ while program_is_runing:
                     game_rules.create_button((144,238,144))    
 
             # IF Statemen to control Mouse Click events
-            if not rectangle_draging and (1050 <= position[0] <= 1150) and (110 <= position[1] <= 150): 
+            draw_button_position = (1050 <= position[0] <= 1150) and (110 <= position[1] <= 150)
+            if not rectangle_draging and draw_button_position: 
                 rectangle_draging = True
                 draw_pattern.create_button((189,183,107))  
                 new_window.fill(pygame.Color("black"), (1001, 685, 199, 690)) 
-                text_directions.print("Select First Point & Drag", new_window) 
-            else:
+                text_directions.print("Make your grid selection", new_window) 
+            elif rectangle_draging and draw_button_position:
                 rectangle_draging = False
+                new_window.fill(pygame.Color("black"), (1001, 685, 199, 690))
                 draw_pattern.create_button((144,238,144))       
 
             # IF Statemen to control Start/Stop Mouse Click and hover events
@@ -228,15 +236,6 @@ while program_is_runing:
                 else:
                     app_credits_pressed = True
                     app_credits.create_button((144,238,144)) 
-        print(rectangle_draging, "last rectangle draging")
-        if rectangle_draging and x.type == pygame.MOUSEBUTTONUP:
-            if  not (0 <= position[0] <= 1000) and (0 <= position[1] <= 1000):
-                new_window.fill(pygame.Color("black"), (1001, 685, 199, 690))
-                text_directions.print("Error, Release Inside Grid", new_window)
-            elif rectangle_draging:    
-                get_last_pos = pygame.mouse.get_pos()
-                new_window.fill(pygame.Color("black"), (1001, 685, 199, 690))
-                text_directions.print("Good!!, repeat as needed", new_window)
                 
         # Describe other
 
