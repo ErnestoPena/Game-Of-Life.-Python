@@ -1,3 +1,30 @@
+import pygame
+
+# Update Cell State
+def update_master(coordinates, master_grid_data):
+    
+    coordinates.append(False)
+    
+    value_index = master_grid_data.index(coordinates) if coordinates in master_grid_data else None
+    
+    if not value_index:
+        coordinates[2] = True
+        value_index = master_grid_data.index(coordinates) if coordinates in master_grid_data else None
+
+    temp_state = master_grid_data[value_index][2]
+
+    if temp_state:
+        master_grid_data[value_index][2] = False
+    else:
+        master_grid_data[value_index][2] = True
+
+    print(master_grid_data[value_index][2])
+    
+    return (master_grid_data, master_grid_data[value_index][2])
+
+
+
+
 
 def process_pattern(pattern):
     # The function argument  "pattern" is a tupple of tuples representing one alive node information and the corresponding neighbours cells information states and coordinates
