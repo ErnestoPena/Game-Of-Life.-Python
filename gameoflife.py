@@ -42,7 +42,7 @@ SQUARE_H= 100
 image_to_load = ('alive.png', 'dead.png')
 count_if_live_cells_exists = 0
 status_master_list= (0,0,0)
-load_music.music(True , CURRENT_PATH)
+#load_music.music(True , CURRENT_PATH)
 
 #Set the state of our program
 program_is_runing = True

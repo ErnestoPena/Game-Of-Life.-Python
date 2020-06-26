@@ -23,8 +23,7 @@ def update_master(coordinates, master_grid_data, count_if_live_cells_exists):
 
 
 
-
-# Function to find the status of cell neighbours 
+# Function to find the status of cell neighbors 
 def process_neighbours(master_grid_data):
     # The function argument  "master_grid_data" is a list of lists representing
     # cell coordinates and status 
@@ -33,47 +32,71 @@ def process_neighbours(master_grid_data):
     temp_grid_list = master_grid_data
 
     for node_index, node in enumerate(temp_grid_list):
-        #Finding the cell index and calculating neighbours indexes 
+        #Finding the cell index and calculating neighbors indexes 
         
         #Top Left Cell
-        TL = abs(node_index - 101)
-        TL = temp_grid_list[TL]
-        TL = TL[2]
+        if node[0] == 0 or node[1] == 0:
+            TL = False    
+        else: 
+            TL = node_index - 101   
+            TL = temp_grid_list[TL]
+            TL = TL[2]
 
         #Top
-        T = abs(node_index - 100)
-        T = temp_grid_list[T]
-        T = T[2]
+        if node[1] == 0:
+            T = False
+        else:
+            T = node_index - 100
+            T = temp_grid_list[T]
+            T = T[2]
 
         #Top Right Cell
-        TR = abs(node_index - 99)
-        TR = temp_grid_list[TR]
-        TR = TR[2]
+        if node[0] == 990 or node[1] == 0:
+            TR = False           
+        else:
+            TR = node_index - 99
+            TR = temp_grid_list[TR]
+            TR = TR[2]
 
         #Right Cell
-        R = node_index + 1
-        R = temp_grid_list[R]
-        R = R[2]
+        if node[0] == 990:
+            R = False
+        else:    
+            R = node_index + 1 
+            R = temp_grid_list[R]
+            R = R[2]
 
         #Bottom Right Cell
-        BR = node_index + 101
-        BR = temp_grid_list[BR]
-        BR = BR[2]
+        if node[0] == 990 or node[1] == 990:
+            BR = False
+        else:
+            BR = node_index + 101
+            BR = temp_grid_list[BR]
+            BR = BR[2]
 
         #Bottom Cell
-        B = node_index + 100
-        B = temp_grid_list[B]
-        B = B[2]
+        if node[1] == 990:
+            B = False
+        else:    
+            B = node_index + 100
+            B = temp_grid_list[B]
+            B = B[2]
 
         #Bottom Left Cell
-        BL = node_index + 99
-        BL= temp_grid_list[BL]
-        BL = BL[2]
+        if node[0] == 0 or node[1] == 990:
+            BL = False
+        else:
+            BL = node_index + 99
+            BL= temp_grid_list[BL]
+            BL = BL[2]
 
         #Left Cell
-        L = abs(node_index - 1)
-        L = temp_grid_list[L]
-        L = L[2]
+        if node[0] == 0:
+            L = False
+        else:    
+            L = abs(node_index - 1)
+            L = temp_grid_list[L]
+            L = L[2]
 
         neighbours_tuple = (TL, T, TR, R, BR, B, BL, L)
         count_true = neighbours_tuple.count(True)
