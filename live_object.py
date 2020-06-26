@@ -13,4 +13,5 @@ def print_cell(image_to_load, x , y, width , height, screen , map_object, status
 
     image_to_load = pygame.image.load(image_to_load)
     image_to_load = pygame.transform.scale(image_to_load, (width , height))
-    screen.blit(image_to_load, [x+1, y+1])        
+    screen.blit(image_to_load, [x+1, y+1]) 
+             
