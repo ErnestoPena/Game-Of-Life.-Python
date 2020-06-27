@@ -47,7 +47,7 @@ def process_neighbors(master_grid_data):
             TL = False    
         else: 
             TL = node_index - 101   
-            TL = temp_grid_list[TL]
+            TL = master_grid_data[TL]
             TL = TL[2]
 
         #Top
@@ -55,7 +55,7 @@ def process_neighbors(master_grid_data):
             T = False
         else:
             T = node_index - 100
-            T = temp_grid_list[T]
+            T = master_grid_data[T]
             T = T[2]
 
         #Top Right Cell
@@ -63,7 +63,7 @@ def process_neighbors(master_grid_data):
             TR = False           
         else:
             TR = node_index - 99
-            TR = temp_grid_list[TR]
+            TR = master_grid_data[TR]
             TR = TR[2]
 
         #Right Cell
@@ -71,7 +71,7 @@ def process_neighbors(master_grid_data):
             R = False
         else:    
             R = node_index + 1 
-            R = temp_grid_list[R]
+            R = master_grid_data[R]
             R = R[2]
 
         #Bottom Right Cell
@@ -79,7 +79,7 @@ def process_neighbors(master_grid_data):
             BR = False
         else:
             BR = node_index + 101
-            BR = temp_grid_list[BR]
+            BR = master_grid_data[BR]
             BR = BR[2]
 
         #Bottom Cell
@@ -87,7 +87,7 @@ def process_neighbors(master_grid_data):
             B = False
         else:    
             B = node_index + 100
-            B = temp_grid_list[B]
+            B = master_grid_data[B]
             B = B[2]
 
         #Bottom Left Cell
@@ -95,7 +95,7 @@ def process_neighbors(master_grid_data):
             BL = False
         else:
             BL = node_index + 99
-            BL= temp_grid_list[BL]
+            BL= master_grid_data[BL]
             BL = BL[2]
 
         #Left Cell
@@ -103,7 +103,7 @@ def process_neighbors(master_grid_data):
             L = False
         else:    
             L = node_index-1
-            L = temp_grid_list[L]
+            L = master_grid_data[L]
             L = L[2]
 
         neighbors_tuple = (TL, T, TR, R, BR, B, BL, L)
@@ -122,7 +122,7 @@ def process_neighbors(master_grid_data):
         elif not node[2] and count_true == 3:
             temp_grid_list[node_index][2] = True
     
-    print([truthy for truthy in temp_grid_list if truthy[2] == True])
+    #print([truthy for truthy in temp_grid_list if truthy[2] == True])
     return temp_grid_list
         
         

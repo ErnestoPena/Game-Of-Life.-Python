@@ -25,7 +25,7 @@ import find_real_coordinates
 pygame.init()
 
 hold_grid_data = grid_tuple.construct_main_tuple()
-print(hold_grid_data)
+
 # Setting the caption for the Main window
 pygame.display.set_caption("Game of Life. Lambdaschool Computer Science Project 1")
 
@@ -134,10 +134,7 @@ while program_is_runing:
         # Statement to constantly get the mouse coordinates
         position = pygame.mouse.get_pos()
         # If statement to quit the app
-        if x.type == pygame.QUIT:
-            program_is_runing = False
-            pygame.quit()
-            quit() 
+        if x.type == pygame.QUIT: break
 
         # IF statement to control mouse on menu
         mouse_result = mouse_menu.mouse_over_menu(position)
@@ -170,16 +167,18 @@ while program_is_runing:
 
             ########################################################################################################    
 
-            # IF Statemen to control Game Rules Mouse Click and hover events
+            # Control the Rules
             if (1050 <= position[0] <= 1150) and (50 <= position[1] <= 90):
                 if game_rules_pressed:
                     game_rules_pressed = False
-                    game_rules.create_button((189,183,107))    
+                    game_rules.create_button((189,183,107))  
+                    rules_message.rules(new_window)  
                 else:
                     game_rules_pressed = True
-                    game_rules.create_button((144,238,144))    
+                    game_rules.create_button((144,238,144)) 
+                    grid = game_grid.grid(SQUARE_W, SQUARE_H, new_window)   
 
-            # IF Statemen to control Mouse Click events
+            # Control the Draw Pattern
             draw_button_position = (1050 <= position[0] <= 1150) and (110 <= position[1] <= 150)
             if not rectangle_draging and draw_button_position: 
                 rectangle_draging = True
@@ -194,46 +193,42 @@ while program_is_runing:
             # IF Statemen to control Start/Stop Mouse Click and hover events
             if (1050 <= position[0] <= 1150) and (170 <= position[1] <= 210):
                 if status_master_list[2] > 0:
-                    if not start_stop_pressed:
+                    if not start_stop_pressed and rectangle_draging == False:
                         process_generation_loop = True
                         start_stop_pressed = True
                         start_stop.create_button((189,183,107)) 
 
-                        #while process_generation_loop or start_stop_pressed:
                         live, dead = image_to_load
-                        
-                        # Passing status_master_list into another array
                         list_to_use = deepcopy(status_master_list[0])
-
+                    
                         for x in range(1,1000):
-                            clock1 = pygame.time.Clock()
-                            processed_cells = process_pattern.process_neighbors(list_to_use) 
-                            hold_grid_data = deepcopy(processed_cells)
-                            print("Time to process cells state", clock1.tick()/1000)
 
-                            clock2 = pygame.time.Clock()
+                            processed_cells = process_pattern.process_neighbors(list_to_use) 
+
                             for new_nodes in processed_cells:
                                 if new_nodes[2]:
-                                    image = live
+                                    color = (255,0,0)
                                 else:
-                                    image = dead 
+                                    color = (255,255,255)
 
-                                image = pygame.image.load(image)
-                                image = pygame.transform.scale(image, (9 , 9))
-                                new_window.blit(image, [new_nodes[0] + 1, new_nodes[1] +1])
+                                new_window.fill(color, (new_nodes[0] + 1, new_nodes[1] +1, 9, 9))
 
-                            pygame.display.update()
-                            
-                            print("Clock 2 - Process the updated list graphically",clock2.tick()/1000)    
+                                # image = pygame.image.load(image)
+                                # image = pygame.transform.scale(image, (9 , 9))
+                                # new_window.blit(image, [new_nodes[0] + 1, new_nodes[1] +1])
+                                
                             # Printing the generation    
                             new_window.fill(pygame.Color("black"), (1001, 385, 199, 30))
                             font = pygame.font.SysFont('Times New Roman', 18)
                             header_text = font.render("Generation => " + str(x),1,(255,255,0))
                             new_window.blit(header_text, (1000 + (200/2 - header_text.get_width()/2), 385 + (header_text.get_height()/2)))        
-                            
+                            list_to_use = deepcopy(processed_cells)
+                            pygame.display.update()
                     else:
                         start_stop_pressed = False
-                        start_stop.create_button((144,238,144))  
+                        start_stop.create_button((144,238,144))
+                        new_window.fill(pygame.Color("black"), (1001, 685, 199, 690))
+                        text_directions.print("Click on Start/Stop to confirm", new_window)  
                 else:
                     new_window.fill(pygame.Color("black"), (1001, 685, 199, 690))
                     text_directions.print("Error!, Select a Cell", new_window)              
@@ -252,6 +247,7 @@ while program_is_runing:
                     app_credits.create_button((144,238,144)) 
                 
         # Describe other
+    
 
     
     run()  
