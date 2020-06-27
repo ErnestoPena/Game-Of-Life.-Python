@@ -228,7 +228,7 @@ while program_is_runing:
                         start_stop_pressed = False
                         start_stop.create_button((144,238,144))
                         new_window.fill(pygame.Color("black"), (1001, 685, 199, 690))
-                        text_directions.print("Click on Start/Stop to confirm", new_window)  
+                        text_directions.print("Click Start/Stop", new_window)  
                 else:
                     new_window.fill(pygame.Color("black"), (1001, 685, 199, 690))
                     text_directions.print("Error!, Select a Cell", new_window)              
